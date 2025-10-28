@@ -1,0 +1,184 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --page-count: 20;
+  --page-scroll: 25;
+  --underline: hsla(0, 0%, 25%, 0.4);
+  --spine: hsl(0, 0%, 0%);
+  --cover: hsl(0, 0%, 10%);
+  --bg: hsl(0, 0%, 30%);
+  --insert: hsl(0, 0%, 85%);
+  --page: hsl(0, 0%, 90%);
+}
+
+h1 {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  margin: 0;
+  font-size: 2rem;
+  color: hsl(0, 0%, 50%);
+}
+
+body {
+  margin: 0;
+  min-height: 3500vh;
+  background: var(--bg);
+  overflow-x: hidden;
+  font-family: system-ui, sans-serif;
+}
+
+main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  perspective: 100vmin;
+  perspective-origin: 50% 50%;
+  pointer-events: none;
+}
+
+.book {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 65vmin;
+  height: 80vmin;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%) rotateY(-30deg) rotateX(10deg) scale(0.8);
+  pointer-events: all;
+}
+
+.book__spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1rem;
+  height: 100%;
+  background: var(--spine);
+  transform-origin: left center;
+  transform: rotateY(-90deg);
+}
+
+.book__page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.page__half {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.page__half--front {
+  left: 0;
+  background: var(--page);
+}
+
+.page__half--back {
+  right: 0;
+  background: var(--page);
+  transform: rotateY(180deg);
+}
+
+.book__cover .page__half--front {
+  background: var(--cover);
+}
+
+.book__cover .page__half--back {
+  background: var(--cover);
+}
+
+.book__page:nth-of-type(even) .page__half {
+  background: var(--insert);
+}
+
+.book__cover:nth-of-type(even) .page__half {
+  background: var(--cover);
+}
+
+.page__half img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.page__half a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.page__number {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  color: hsl(0, 0%, 40%);
+}
+
+.page__half--back .page__number {
+  left: 1rem;
+  right: auto;
+}
+
+.book__insert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: white;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book__insert img {
+  max-width: 60%;
+  max-height: 60%;
+}
+
+.code {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.5rem;
+  line-height: 1.2;
+  color: hsl(0, 0%, 60%);
+  word-break: break-all;
+  overflow: hidden;
+  max-height: 8rem;
+}
+
+.sticker {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.logo {
+  max-width: 100%;
+  max-height: 100%;
+}
