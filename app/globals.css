@@ -89,18 +89,40 @@ main {
   background: var(--page);
 }
 
+.page__half--front,
+.page__half--back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 .page__half--back {
   right: 0;
   background: var(--page);
   transform: rotateY(180deg);
 }
 
+/* The back half is rotated 180deg to form the right-side page.
+   Keep the wrapper untransformed (avoids 3D culling), and only counter-rotate images. */
+.page__half--back .page__content {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .book__cover .page__half--front {
-  background: var(--cover);
-  background-image: url('/image.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background: var(--cover) !important;
+  background-image: url('/image.png') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+/* Extra specific selector to ensure image loads */
+.book .book__page.book__cover--front .page__half--front {
+  background: url('/image.png') center/cover no-repeat #1a1a1a !important;
+  min-height: 100% !important;
+  width: 100% !important;
 }
 
 .book__cover .page__half--back {

@@ -9,28 +9,10 @@ declare global {
   }
 }
 
-const DEMOS = [
-  { name: 'Kitkat', id: 'LYpNyvm' },
-  { name: 'Newton', id: 'abzeaWJ' },
-  { name: 'Launch', id: 'rNOqzbN' },
-  { name: 'Birthday', id: 'BaobKOJ' },
-  { name: 'Impossible', id: 'ZjLKGY' },
-  { name: 'Care', id: 'RwPrOoz' },
-  { name: 'Cubes', id: 'QWbRxXb' },
-  { name: 'Elon', id: 'RwWMwvY' },
-  { name: 'Gun', id: 'GRoKOyg' },
-  { name: 'Moon', id: 'NWqemYK' },
-  { name: 'Pokedex', id: 'eYpGQxr' },
-  { name: 'Record', id: 'RwraKYZ' },
-  { name: 'Tcannon', id: 'eYpmBxQ' },
-  { name: 'Cloud', id: 'MWwRKvd' },
-  { name: 'Fireflies', id: 'zYGQYWJ' },
-  { name: 'Train', id: 'eYpdPWa' },
-  { name: 'Pancake', id: 'jJVpWZ' },
-  { name: 'Earth', id: 'aPzVme' },
-  { name: 'Matryoshka', id: 'jOOYMLm' },
-  { name: 'Truck', id: 'MWWowEb' },
-]
+const RESUME_PAGE_COUNT = 6
+
+const getResumePageSrc = (pageNumber: number) =>
+  encodeURI(`/Book resume page-${pageNumber}.png`)
 
 export default function AnimatedBook() {
   useEffect(() => {
@@ -49,7 +31,7 @@ export default function AnimatedBook() {
       try {
         await loadScript('https://unpkg.co/gsap@3/dist/gsap.min.js')
         await loadScript('https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js')
-        
+
         const { gsap, ScrollTrigger } = window
         const { to, set } = gsap
 
@@ -112,47 +94,92 @@ export default function AnimatedBook() {
 
   const codeSnippet = `set(FOLD,{transformOrigin:"50% 100%",scaleY:0}),set(CLIPS,{transformOrigin:"50% 0"}),set(".cannon__shirt",{opacity:0}),set(".cannon",{y:28}),set(".text--ordered .char",{y:"100%"});const SPEED=.15,FOLD_TL=()=>new timeline().to(LEFT_ARM,{duration:SPEED,rotateY:-180,transformOrigin:\`\${100*(22/65.3)}% 50%\`},0).to(RIGHT_ARM,{duration:SPEED,rotateY:-180,transformOrigin:\`\${100*((65.3-22)/65.3)}% 50%\`},SPEED).to(FOLD,{duration:SPEED/4,scaleY:1},2*SPEED).to(FOLD,{duration:SPEED,y:-47},2*SPEED+.01).to(CLIPS,{duration:SPEED,scaleY:.2},2*SPEED).to(".cannon",{duration:SPEED,y:0},2*SPEED)`
 
+  const sheetCount = Math.ceil(RESUME_PAGE_COUNT / 2)
+  const backCoverIndex = sheetCount + 2
+
   return (
     <div className="book">
       <div className="book__spine"></div>
-      
+
       {/* Front Cover */}
-      <div className="page book__page book__cover book__cover--front" style={{'--page-index': 1} as React.CSSProperties}>
-        <div className="page__half page__half--front">
-          {/* Custom book cover background image will show here */}
+      <div className="page book__page book__cover book__cover--front" style={{ '--page-index': 1 } as React.CSSProperties}>
+        <div
+          className="page__half page__half--front"
+          style={{
+            position: 'relative',
+            overflow: 'hidden',
+            width: '100%',
+            height: '100%',
+            background: '#ff0000'
+          }}
+        >
+          <img
+            src="/image.png"
+            alt="Book Cover"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              zIndex: 1,
+              border: '3px solid #2c3e50',
+              borderRadius: '4px',
+              boxShadow: 'inset 0 0 20px rgba(0,0,0,0.3), 0 4px 15px rgba(0,0,0,0.4)'
+            }}
+            onLoad={() => console.log('Image loaded successfully')}
+            onError={(e) => {
+              console.error('Image failed to load:', e);
+              (e.target as HTMLImageElement).style.display = 'none';
+            }}
+          />
         </div>
         <div className="page__half page__half--back">
-          <div className="book__insert"></div>
+          <div className="page__content">
+            <div className="book__insert"></div>
+          </div>
         </div>
       </div>
 
-      {/* Pages 1-10 */}
-      {Array.from({ length: 10 }, (_, i) => (
-        <div key={i} className="page book__page" style={{'--page-index': i + 2} as React.CSSProperties}>
-          <div className="page__half page__half--front">
-            <a href={`https://codepen.io/jh3y/full/${DEMOS[i * 2]?.id}`} target="_blank" rel="noreferrer noopener">
-              <img src={`https://s3-us-west-2.amazonaws.com/s.cdpn.io/605876/${DEMOS[i * 2]?.name}-sketch.svg`} alt={DEMOS[i * 2]?.name} />
-            </a>
-            <div className="page__number">{i * 2 + 1}</div>
+      {/* Resume pages */}
+      {Array.from({ length: sheetCount }, (_, sheetIndex) => {
+        const frontPageNumber = sheetIndex * 2 + 1
+        const backPageNumber = sheetIndex * 2 + 2
+        const frontSrc = frontPageNumber <= RESUME_PAGE_COUNT ? getResumePageSrc(frontPageNumber) : null
+        const backSrc = backPageNumber <= RESUME_PAGE_COUNT ? getResumePageSrc(backPageNumber) : null
+
+        return (
+          <div
+            key={sheetIndex}
+            className="page book__page"
+            style={{ '--page-index': sheetIndex + 2 } as React.CSSProperties}
+          >
+            <div className="page__half page__half--front">
+              {frontSrc ? <img src={frontSrc} alt={`Resume page ${frontPageNumber}`} /> : null}
+            </div>
+            <div className="page__half page__half--back">
+              <div className="page__content">
+                {backSrc ? <img src={backSrc} alt={`Resume page ${backPageNumber}`} /> : null}
+              </div>
+            </div>
           </div>
-          <div className="page__half page__half--back">
-            <a href={`https://codepen.io/jh3y/full/${DEMOS[i * 2 + 1]?.id}`} target="_blank" rel="noreferrer noopener">
-              <img src={`https://s3-us-west-2.amazonaws.com/s.cdpn.io/605876/${DEMOS[i * 2 + 1]?.name}-sketch.svg`} alt={DEMOS[i * 2 + 1]?.name} />
-            </a>
-            <div className="page__number">{i * 2 + 2}</div>
-          </div>
-        </div>
-      ))}
+        )
+      })}
 
       {/* Back Cover */}
-      <div className="page book__page book__cover book__cover--back" style={{'--page-index': 12} as React.CSSProperties}>
+      <div
+        className="page book__page book__cover book__cover--back"
+        style={{ '--page-index': backCoverIndex } as React.CSSProperties}
+      >
         <div className="page__half page__half--front"></div>
         <div className="page__half page__half--back">
-          <span className="code">{codeSnippet}</span>
-          <div className="book__insert">
-            <a href="https://jhey.dev" target="_blank" rel="noopener noreferrer">
-              <img className="logo" src="https://assets.codepen.io/605876/bear-with-cap.svg" alt="Jhey Logo" />
-            </a>
+          <div className="page__content">
+            <span className="code">{codeSnippet}</span>
+            <div className="book__insert">
+              <a href="https://jhey.dev" target="_blank" rel="noopener noreferrer">
+              </a>
+            </div>
           </div>
         </div>
       </div>
