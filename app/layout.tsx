@@ -1,3 +1,5 @@
+import './globals.css'
+
 export default function RootLayout({
   children,
 }: {
@@ -6,7 +8,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>CodePen Showcase - Interactive Book</title>
+        <title>Luke Balogun - Interactive Book Resume</title>
         <meta name="description" content="An interactive 3D book showcasing amazing CodePen demos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>

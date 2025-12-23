@@ -114,7 +114,7 @@ export default function AnimatedBook() {
           }}
         >
           <img
-            src="/image.png"
+            src="/BookCover.png"
             alt="Book Cover"
             style={{
               position: 'absolute',
