@@ -1,4 +1,39 @@
+import type { Metadata } from 'next'
+
 import './globals.css'
+
+const siteTitle = "Luke Balogun's Interactive Resume"
+const siteDescription = 'An interactive 3D book resume experience.'
+
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  title: siteTitle,
+  description: siteDescription,
+  icons: {
+    icon: [{ url: '/favicon.png', type: 'image/png' }],
+    shortcut: [{ url: '/favicon.png', type: 'image/png' }],
+    apple: [{ url: '/favicon.png', type: 'image/png' }],
+  },
+  openGraph: {
+    type: 'website',
+    title: siteTitle,
+    description: siteDescription,
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: siteTitle,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteTitle,
+    description: siteDescription,
+    images: ['/twitter-image'],
+  },
+}
 
 export default function RootLayout({
   children,
@@ -7,11 +42,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <title>Luke Balogun - Interactive Book Resume</title>
-        <meta name="description" content="An interactive 3D book showcasing amazing CodePen demos" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
       <body>{children}</body>
     </html>
   )

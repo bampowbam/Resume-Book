@@ -1,0 +1,70 @@
+import { ImageResponse } from 'next/og'
+import { headers } from 'next/headers'
+
+export const runtime = 'edge'
+
+export const size = {
+  width: 1200,
+  height: 630,
+}
+
+export const contentType = 'image/png'
+
+const title = "Luke Balogun's Interactive Resume"
+
+function getOrigin() {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL
+  if (configured) return configured
+
+  const hdrs = headers()
+  const host = hdrs.get('x-forwarded-host') ?? hdrs.get('host') ?? 'localhost:3000'
+  const proto = hdrs.get('x-forwarded-proto') ?? 'http'
+  return `${proto}://${host}`
+}
+
+export default function Image() {
+  const origin = getOrigin()
+  const iconUrl = new URL('/favicon.png', origin).toString()
+
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#ffffff',
+          color: '#0f172a',
+          padding: 80,
+          textAlign: 'center',
+        }}
+      >
+        <img
+          src={iconUrl}
+          width={140}
+          height={140}
+          style={{
+            borderRadius: 28,
+            marginBottom: 32,
+          }}
+        />
+        <div
+          style={{
+            fontSize: 68,
+            fontWeight: 700,
+            lineHeight: 1.1,
+            letterSpacing: -1,
+          }}
+        >
+          {title}
+        </div>
+      </div>
+    ),
+    {
+      ...size,
+    },
+  )
+}

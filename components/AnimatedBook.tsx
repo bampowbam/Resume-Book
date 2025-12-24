@@ -92,8 +92,6 @@ export default function AnimatedBook() {
     initGSAP()
   }, [])
 
-  const codeSnippet = `set(FOLD,{transformOrigin:"50% 100%",scaleY:0}),set(CLIPS,{transformOrigin:"50% 0"}),set(".cannon__shirt",{opacity:0}),set(".cannon",{y:28}),set(".text--ordered .char",{y:"100%"});const SPEED=.15,FOLD_TL=()=>new timeline().to(LEFT_ARM,{duration:SPEED,rotateY:-180,transformOrigin:\`\${100*(22/65.3)}% 50%\`},0).to(RIGHT_ARM,{duration:SPEED,rotateY:-180,transformOrigin:\`\${100*((65.3-22)/65.3)}% 50%\`},SPEED).to(FOLD,{duration:SPEED/4,scaleY:1},2*SPEED).to(FOLD,{duration:SPEED,y:-47},2*SPEED+.01).to(CLIPS,{duration:SPEED,scaleY:.2},2*SPEED).to(".cannon",{duration:SPEED,y:0},2*SPEED)`
-
   const sheetCount = Math.ceil(RESUME_PAGE_COUNT / 2)
   const backCoverIndex = sheetCount + 2
 
@@ -175,7 +173,6 @@ export default function AnimatedBook() {
         <div className="page__half page__half--front"></div>
         <div className="page__half page__half--back">
           <div className="page__content">
-            <span className="code">{codeSnippet}</span>
             <div className="book__insert">
               <a href="https://jhey.dev" target="_blank" rel="noopener noreferrer">
               </a>

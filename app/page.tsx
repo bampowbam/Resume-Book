@@ -6,6 +6,17 @@ const RESUME_DOCX_HREF = encodeURI('/Luke Balogun Resume 2025.docx')
 export default function Home() {
   return (
     <>
+      <header className="topbar">
+        <a
+          className="topbar__button"
+          href="https://www.lukebalogun.ai/"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Click Here to Experience Luke Balogun&apos;s Portfolio World
+        </a>
+      </header>
+
       <h1>Scroll</h1>
       <main>
         <AnimatedBook />
