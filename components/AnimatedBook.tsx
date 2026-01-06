@@ -12,7 +12,7 @@ declare global {
 const RESUME_PAGE_COUNT = 6
 
 const getResumePageSrc = (pageNumber: number) =>
-  encodeURI(`/Book resume page-${pageNumber}.png`)
+  `/book-resume-page-${pageNumber}.png`
 
 export default function AnimatedBook() {
   useEffect(() => {
