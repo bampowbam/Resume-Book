@@ -6,7 +6,7 @@ const siteTitle = "Luke Balogun's Interactive Resume"
 const siteDescription = 'An interactive 3D book resume experience.'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://resume-book.onrender.com'),
   title: siteTitle,
   description: siteDescription,
   icons: {

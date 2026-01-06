@@ -1,0 +1,40 @@
+<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="coverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#333333;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="4" dy="4" stdDeviation="8" flood-color="rgba(0,0,0,0.3)"/>
+    </filter>
+  </defs>
+  
+  <!-- Book Cover Background -->
+  <rect width="400" height="600" fill="url(#coverGradient)" rx="8" filter="url(#shadow)"/>
+  
+  <!-- Title Area -->
+  <rect x="40" y="100" width="320" height="200" fill="rgba(255,255,255,0.05)" rx="4" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  
+  <!-- Main Title -->
+  <text x="200" y="160" font-family="Georgia, serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#ffffff">
+    CodePen
+  </text>
+  <text x="200" y="200" font-family="Georgia, serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#ffffff">
+    Showcase
+  </text>
+  <text x="200" y="240" font-family="Georgia, serif" font-size="24" text-anchor="middle" fill="#cccccc">
+    Interactive Book
+  </text>
+  
+  <!-- Decorative Elements -->
+  <circle cx="200" cy="350" r="40" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+  <circle cx="200" cy="350" r="25" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  
+  <!-- Bottom Text -->
+  <text x="200" y="520" font-family="Georgia, serif" font-size="16" text-anchor="middle" fill="#888888">
+    Scroll to Explore
+  </text>
+  <text x="200" y="545" font-family="Georgia, serif" font-size="14" text-anchor="middle" fill="#666666">
+    20 Amazing Demos
+  </text>
+</svg>
