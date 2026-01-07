@@ -147,6 +147,19 @@ main {
     transform: translate(-42%, -50%) rotateY(-30deg) rotateX(10deg) scale(0.8);
   }
 
+  /* Fix z-index layering on mobile to prevent cover overlap */
+  .book__page {
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+  }
+
+  .page__half {
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
   .page__half img {
     /* Prevent text cropping on small screens. */
     object-fit: contain;
